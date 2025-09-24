@@ -65,5 +65,5 @@ App will be running at http://localhost:3000
 ### 🔑 Login Page  
 ![Login Page](./assets/login.png)
 
-### 🛡️ Dashboard (Protected Route)  
+### SignUp Page
 ![SignUp Page](./assets/signup.png)
