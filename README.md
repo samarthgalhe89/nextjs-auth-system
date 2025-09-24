@@ -58,12 +58,3 @@ MAILTRAP_PASS=your_pass
 npm run dev
 
 App will be running at http://localhost:3000
-
-
-## 📸 Screenshots  
-
-### 🔑 Login Page  
-![Login Page](./assets/login.png)
-
-### SignUp Page
-![SignUp Page](./assets/signup.png)
