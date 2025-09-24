@@ -29,7 +29,7 @@ Auth: JWT (JSON Web Tokens)
 
 Email Service: Nodemailer (with Mailtrap for testing)
 
-Database: (Optional – MongoDB/PostgreSQL integration ready)
+Database: MongoDB
 
 🚀 Getting Started
 1️⃣ Clone the Repository
