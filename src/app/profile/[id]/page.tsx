@@ -2,51 +2,47 @@
 
 import { useEffect } from "react";
 
-export default function UserProfile({ params }: any) {
+export default function UserProfile({ params }: { params: { id: string } }) {
 
   useEffect(() => {
-    // Optional: could add more interactive effects here
+    
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 animate-gradient-x"></div>
-
-      {/* Content card */}
-      <div className="relative z-10 w-full max-w-md bg-gray-900 bg-opacity-80 backdrop-blur-lg p-8 rounded-2xl shadow-xl text-gray-100 text-center">
-        <h1 className="text-4xl font-bold mb-4">User Profile</h1>
-        <p className="text-xl mb-4">Welcome to the profile page!</p>
-        <span className="inline-block px-6 py-3 rounded-full bg-gray-500 text-black font-semibold text-lg">
-          User ID: {params.id}
-        </span>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 px-4 relative overflow-hidden">
+      
+      {/* Background Layers */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Subtle Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[length:4rem_4rem] opacity-20"></div>
+        
+        {/* Large Blurred Gradient Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-blue-600/20 via-transparent to-purple-600/20 blur-3xl"></div>
       </div>
 
-    {/* Tailwind custom animation */}
-      <style>
-        {`
-          @keyframes gradient-x {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
+      {/* Content Card */}
+      <div className="relative z-10 w-full max-w-md bg-gray-800/80 backdrop-blur-xl p-8 md:p-10 rounded-3xl shadow-2xl border border-gray-700/50 text-center transform transition-transform duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/30 hover:border-blue-500/50 hover:bg-gray-800/90 hover:backdrop-blur-2xl">
+        
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+          User Profile
+        </h1>
 
-          .animate-gradient-x {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(270deg, 
-rgb(211, 217, 226), /* blue-500 */
-              #6366f1, /* indigo-500 */
-              #0ea5e9, /* cyan-500 */
-              #8b5cf6, /* violet-500 */
-              #38bdf8  /* sky-400 */
-            );
-            background-size: 400% 400%; /* bigger size for smooth movement */
-            animation: gradient-x 30s ease infinite; /* slower, smooth movement */
-            z-index: 0;
-          }
-        `}
-      </style>
+        <p className="text-sm md:text-lg mb-6 text-gray-400 font-light">
+          Securely displaying your unique identifier.
+        </p>
+
+        {/* User ID Display */}
+        <div className="p-1 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg shadow-blue-500/30">
+          <div className="bg-gray-800 p-5 rounded-lg">
+            <label className="block text-xs md:text-sm font-medium text-blue-400 mb-2 uppercase tracking-wide">
+              Unique ID
+            </label>
+            <span className="block font-mono text-lg md:text-xl text-white break-all select-all">
+              {params.id}
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

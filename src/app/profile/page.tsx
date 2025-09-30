@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { User, LogOut, Loader2, ExternalLink } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -14,11 +16,19 @@ export default function ProfilePage() {
 
   const logout = async () => {
     setLoadingLogout(true);
-    // Simulate logout - replace with your actual axios call
-    setTimeout(() => {
+    try {
+      await axios.get("/api/users/logout");
+      toast.success("✅ Logout successful");
       router.push("/login");
-    }, 1500);
+    } catch (err: any) {
+      toast.error(err.response?.data?.error || err.message || "Logout failed");
+    } finally {
+      setLoadingLogout(false);
+    }
   };
+
+
+
 
   const getUserDetails = async () => {
     setLoadingDetails(true);
