@@ -56,7 +56,7 @@ export default function ForgotPasswordPage() {
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        <div className="bg-gray-800/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50 transform transition-all duration-500 hover:shadow-blue-500/10">
+        <div className="bg-gray-800/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 mb-2">
               Forgot Password
@@ -97,7 +97,7 @@ export default function ForgotPasswordPage() {
             className={`w-full p-3.5 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
               loading
                 ? "bg-gray-600 cursor-not-allowed text-gray-400"
-                : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 active:scale-95 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
+                : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 active:scale-95 text-white"
             }`}
           >
             {loading ? (

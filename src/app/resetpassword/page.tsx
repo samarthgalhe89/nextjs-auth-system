@@ -51,8 +51,8 @@ export default function ResetPasswordPage() {
     <div className="flex items-center justify-center min-h-screen bg-slate-950 px-4 relative overflow-hidden">
       <div className="w-full max-w-md relative z-10">
         {/* Card with hover effect */}
-        <div className="bg-gray-800/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50 transform transition-all duration-500 hover:scale-105 hover:shadow-blue-500/20">
-          <h1 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-500">
+        <div className="bg-gray-800/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50 transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30">
+          <h1 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">
             Reset Password
           </h1>
 
@@ -71,7 +71,7 @@ export default function ResetPasswordPage() {
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className="w-full p-3 rounded-lg mb-4 bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-200"
+            className="w-full p-3 rounded-lg mb-4 bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
           />
 
           <input
@@ -79,7 +79,7 @@ export default function ResetPasswordPage() {
             placeholder="Confirm New Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full p-3 rounded-lg mb-4 bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors duration-200"
+            className="w-full p-3 rounded-lg mb-4 bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
           />
 
           <button
@@ -88,7 +88,7 @@ export default function ResetPasswordPage() {
             className={`w-full p-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
               loading
                 ? "bg-gray-600 cursor-not-allowed text-gray-400"
-                : "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 active:scale-95 text-white shadow-lg shadow-green-500/30 hover:shadow-green-500/50"
+                : "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-indigo-600 hover:to-indigo-500 active:scale-95 text-white shadow-lg shadow-blue-500/30 hover:shadow-indigo-500/50"
             }`}
           >
             {loading ? (
@@ -106,7 +106,7 @@ export default function ResetPasswordPage() {
               Remembered your password?{" "}
               <button
                 onClick={() => router.push("/login")}
-                className="text-green-400 hover:text-green-300 font-medium transition-colors duration-200 hover:underline"
+                className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200 hover:underline"
               >
                 Sign In
               </button>
@@ -129,3 +129,4 @@ export default function ResetPasswordPage() {
     </div>
   );
 }
+
