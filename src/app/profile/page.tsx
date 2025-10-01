@@ -49,7 +49,7 @@ export default function ProfilePage() {
 
       <div className="w-full max-w-md relative z-10">
         {/* Main card */}
-        <div className="bg-gray-800/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50 hover:shadow-blue-500/10 transition-all duration-500">
+        <div className="bg-gray-800/80 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500">
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl mb-4 border border-blue-500/30">
