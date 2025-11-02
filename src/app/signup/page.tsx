@@ -191,7 +191,7 @@ export default function SignupPage() {
         {/* Bottom decoration */}
         <div className="mt-8 text-center">
           <p className="text-xs text-gray-500">
-            Join thousands of users already on board
+            Join us by signing up and start your journey today!
           </p>
         </div>
       </div>
