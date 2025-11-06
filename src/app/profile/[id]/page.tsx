@@ -1,19 +1,56 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState, use } from "react";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 type UserProfileProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default function UserProfile({ params }: UserProfileProps) {
+  const { id } = use(params);
   const router = useRouter();
-  const { id } = params;
 
+  // Local state for fetched user data
+  const [user, setUser] = useState<{ _id: string; username: string; email: string } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch user details from backend
   useEffect(() => {
-    // Any client-side effects here
-  }, []);
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get("/api/users/me");
+        const loggedUser = data.data;
+
+        // Verify the ID in URL matches logged-in user's ID
+        if (loggedUser._id !== id) {
+          toast.error("Unauthorized access 🚫");
+          router.push("/profile");
+          return;
+        }
+
+        setUser(loggedUser);
+      } catch (err: any) {
+        toast.error(err.response?.data?.error || "Failed to fetch user details");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [id, router]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-950 text-white">
+        <Loader2 className="w-6 h-6 animate-spin mr-2" />
+        Loading user details...
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 px-4 relative overflow-hidden">
@@ -30,19 +67,30 @@ export default function UserProfile({ params }: UserProfileProps) {
         </h1>
 
         <p className="text-sm md:text-lg mb-6 text-gray-400 font-light">
-          Securely displaying your unique identifier.
+          Securely displaying your unique identifier and account details.
         </p>
 
-        <div className="p-1 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg shadow-blue-500/30">
-          <div className="bg-gray-800 p-5 rounded-lg">
-            <label className="block text-xs md:text-sm font-medium text-blue-400 mb-2 uppercase tracking-wide">
-              Unique ID
-            </label>
-            <span className="block font-mono text-lg md:text-xl text-white break-all select-all">
-              {id}
-            </span>
+        {user ? (
+          <div className="p-1 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg shadow-blue-500/30">
+            <div className="bg-gray-800 p-5 rounded-lg">
+              <label className="block text-xs md:text-sm font-medium text-blue-400 mb-2 uppercase tracking-wide">
+                Unique ID
+              </label>
+              <span className="block font-mono text-lg md:text-xl text-white break-all select-all mb-4">
+                {user._id}
+              </span>
+
+              <p className="text-sm text-gray-300 mb-1">
+                <strong>Name:</strong> {user.username}
+              </p>
+              <p className="text-sm text-gray-300">
+                <strong>Email:</strong> {user.email}
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className="text-gray-400">No user details found.</p>
+        )}
 
         <button
           onClick={() => router.push("/profile")}
