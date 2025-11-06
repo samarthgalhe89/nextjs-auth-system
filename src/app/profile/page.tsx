@@ -32,12 +32,20 @@ export default function ProfilePage() {
 
   const getUserDetails = async () => {
     setLoadingDetails(true);
-    // Simulate API call - replace with your actual axios call
-    setTimeout(() => {
-      setUserId("64f8a9b2c1d4e5f6a7b8c9d0");
+    try {
+      const { data } = await axios.get("/api/users/me");
+
+      // Use real data from your API
+      setUserId(data.data._id); // ✅ actual MongoDB _id
+      toast.success(`Welcome back, ${data.data.username}`);
+    } catch (err: any) {
+      toast.error(err.response?.data?.error || "Failed to load user");
+    } finally {
       setLoadingDetails(false);
-    }, 1500);
+    }
   };
+
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-slate-950 px-4 relative overflow-hidden">
