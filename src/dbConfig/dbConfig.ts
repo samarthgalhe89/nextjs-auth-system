@@ -1,24 +1,20 @@
-import { log } from "console";
-import mongoose, { connection } from "mongoose";
+import mongoose from "mongoose";
 
-export async function connect() {
-    try {
-        mongoose.connect(process.env.MONGO_URI!)
-        const connection = mongoose.connection
+export async function connect(): Promise<void> {
+  try {
+    await mongoose.connect(process.env.MONGO_URI as string);
 
+    const connection = mongoose.connection;
 
-        connection.on('connected', () => {
-            console.log('MongoDB connected successfully');
-        })
+    connection.on("connected", () => {
+      console.log("MongoDB connected successfully");
+    });
 
-        connection.on('error', (err) => {
-            console.log('MongoDB connectionn error. Please make sure MMongoDB is running. '+ err);
-            process.exit();
-        })
-
-    } catch (error) {
-        console.log('Something went wrong!');
-        console.log(error);
-        
-    }
+    connection.on("error", (err) => {
+      console.error("MongoDB connection error:", err);
+      process.exit(1);
+    });
+  } catch (error) {
+    console.error("MongoDB connection failed:", error);
+  }
 }

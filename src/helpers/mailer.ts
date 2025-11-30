@@ -1,25 +1,26 @@
 import nodemailer from "nodemailer";
 
+interface SendEmailProps {
+  email: string;
+  emailType: "VERIFY" | "RESET";
+  token: string;
+}
+
 export const sendEmail = async ({
   email,
   emailType,
   token,
-}: {
-  email: string;
-  emailType: "VERIFY" | "RESET";
-  token: string;
-}) => {
+}: SendEmailProps): Promise<any> => {
   try {
     const transport = nodemailer.createTransport({
-      host: process.env.MAILTRAP_HOST!,
+      host: process.env.MAILTRAP_HOST as string,
       port: Number(process.env.MAILTRAP_PORT),
       auth: {
-        user: process.env.MAILTRAP_USER!,
-        pass: process.env.MAILTRAP_PASS!,
+        user: process.env.MAILTRAP_USER as string,
+        pass: process.env.MAILTRAP_PASS as string,
       },
     });
 
-    // Different subject + link for each email type
     const subject =
       emailType === "VERIFY"
         ? "Verify your email"
@@ -48,7 +49,8 @@ export const sendEmail = async ({
     };
 
     return await transport.sendMail(mailOptions);
-  } catch (err: any) {
+  } catch (error) {
+    const err = error as Error;
     throw new Error(err.message);
   }
 };

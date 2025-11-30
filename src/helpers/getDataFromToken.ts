@@ -1,17 +1,30 @@
 import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 
-export const getDataFromToken = (request: NextRequest) => {
+interface DecodedToken {
+  id: string;
+  email?: string;
+  username?: string;
+  iat: number;
+  exp: number;
+}
+
+export const getDataFromToken = (request: NextRequest): string => {
   try {
-    const token = request.cookies.get("token")?.value || "";
+    const token = request.cookies.get("token")?.value;
 
     if (!token) {
       throw new Error("No token found");
     }
 
-    const decodedToken: any = jwt.verify(token, process.env.TOKEN_SECRET!);
-    return decodedToken.id;
-  } catch (error: any) {
-    throw new Error(error.message || "Invalid or expired token");
+    const decoded = jwt.verify(
+      token,
+      process.env.TOKEN_SECRET as string
+    ) as DecodedToken;
+
+    return decoded.id;
+  } catch (error) {
+    const err = error as Error;
+    throw new Error(err.message || "Invalid or expired token");
   }
 };
