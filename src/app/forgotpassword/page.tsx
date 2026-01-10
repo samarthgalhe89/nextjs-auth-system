@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Mail, ArrowRight, Loader2 } from "lucide-react";
 
-export default function ForgotPasswordPage() {
+function ForgotPasswordContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const fromLogin = searchParams.get("fromLogin");
@@ -65,19 +65,17 @@ export default function ForgotPasswordPage() {
           </div>
 
           {message && (
-            <div className={`text-center text-sm mb-4 p-3 rounded-lg animate-slideDown ${
-              message.includes("✅")
+            <div className={`text-center text-sm mb-4 p-3 rounded-lg animate-slideDown ${message.includes("✅")
                 ? "bg-green-500/10 text-green-400 border border-green-500/20"
                 : "bg-red-500/10 text-red-400 border border-red-500/20"
-            }`}>
+              }`}>
               {message}
             </div>
           )}
 
           <div className="relative mb-6">
-            <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${
-              focusedField === "email" ? "text-blue-400" : "text-gray-500"
-            }`}>
+            <div className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-200 ${focusedField === "email" ? "text-blue-400" : "text-gray-500"
+              }`}>
               <Mail className="w-5 h-5" />
             </div>
             <input
@@ -94,11 +92,10 @@ export default function ForgotPasswordPage() {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className={`w-full p-3.5 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
-              loading
+            className={`w-full p-3.5 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${loading
                 ? "bg-gray-600 cursor-not-allowed text-gray-400"
                 : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 active:scale-95 text-white"
-            }`}
+              }`}
           >
             {loading ? (
               <>
@@ -156,5 +153,13 @@ export default function ForgotPasswordPage() {
         .delay-500 { animation-delay: 0.5s; }
       `}</style>
     </div>
+  );
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-slate-950"><Loader2 className="w-8 h-8 animate-spin text-blue-500" /></div>}>
+      <ForgotPasswordContent />
+    </Suspense>
   );
 }
